@@ -57,14 +57,14 @@ namespace ConwaysGameOfLife.Core
 
             List<Cell> neighboringCells = new List<Cell>
             {
-                generation.GetCell(cell.Row - 1, cell.Column - 1),   // Top-left
-                generation.GetCell(cell.Row - 1, cell.Column + 1),   // Top-right
-                generation.GetCell(cell.Row, cell.Column + 1),       // Right
-                generation.GetCell(cell.Row + 1, cell.Column + 1),   // Bottom- right
-                generation.GetCell(cell.Row + 1, cell.Column),       // Bottom
-                generation.GetCell(cell.Row + 1, cell.Column - 1),   // Bottom-left
-                generation.GetCell(cell.Row, cell.Column - 1),        // Left
-                generation.GetCell(cell.Row - 1, cell.Column),       // Top
+                generation.GetCell(cell.Row - 1, cell.Column - 1),
+                generation.GetCell(cell.Row - 1, cell.Column + 1),
+                generation.GetCell(cell.Row, cell.Column + 1),
+                generation.GetCell(cell.Row + 1, cell.Column + 1),
+                generation.GetCell(cell.Row + 1, cell.Column),
+                generation.GetCell(cell.Row + 1, cell.Column - 1),
+                generation.GetCell(cell.Row, cell.Column - 1),
+                generation.GetCell(cell.Row - 1, cell.Column)
             };
 
             neighboringCells.ForEach(

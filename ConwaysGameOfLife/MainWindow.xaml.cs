@@ -26,45 +26,6 @@ namespace ConradsGameOfLife
         public MainWindow()
         {
             InitializeComponent();
-
-            InitialiseGame();
-        }
-
-        private void InitialiseGame()
-        {
-            const int WorldSize = 10;
-            
-            InitialiseGrid(WorldSize);
-
-            Generation initialGeneration = new Generation(WorldSize);
-            initialGeneration.SetCell(0, 0, true);
-
-            Engine engine = new Engine(initialGeneration);
-
-        }
-
-        private void InitialiseGrid(int worldSize)
-        {
-            for (int row = 0; row < worldSize; row++)
-            {
-                for (int column = 0; column < worldSize; column++)
-                {
-                    
-                }
-            }
-        }
-
-        private void DrawGeneration(Generation generation)
-        {
-            for (int row = 0; row < generation.WorldSize; row++)
-            {
-                for (int column = 0; column< generation.WorldSize; column++)
-                {
-                    Cell cell = generation.GetCell(row, column);
-
-
-                }
-            }
         }
     }
 }

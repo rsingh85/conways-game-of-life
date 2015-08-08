@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 
 using ConwaysGameOfLife.Core;
 using ConwaysGameOfLife.Models;
+using ConwaysGameOfLife.ViewModels;
 
 namespace ConradsGameOfLife
 {
@@ -26,6 +27,22 @@ namespace ConradsGameOfLife
         public MainWindow()
         {
             InitializeComponent();
+                        
+            var generationViewModel = new GenerationViewModel(
+                GetInitialGenerationFromUI()
+            );
+
+            DataContext = generationViewModel;
+        }
+
+        private Generation GetInitialGenerationFromUI()
+        {
+            // TODO: Build a Generation object from current UI state
+
+            var generation = new Generation(100);
+            generation.SetCell(0, 0, true);
+
+            return generation;
         }
     }
 }

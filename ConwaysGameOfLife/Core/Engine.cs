@@ -31,7 +31,7 @@ namespace ConwaysGameOfLife.Core
                 {
                     Cell cell = CurrentGeneration.GetCell(row, column);
 
-                    int numberOfAliveNeighbors = CurrentGeneration.GetNumberOfAliveNeighbors(cell);
+                    int numberOfAliveNeighbors = GetNumberOfAliveNeighbors(CurrentGeneration, cell);
 
                     if (numberOfAliveNeighbors < UnderPopulationThreshold ||
                             numberOfAliveNeighbors > OverPopulationThreshold)
@@ -49,6 +49,30 @@ namespace ConwaysGameOfLife.Core
                 cellLifeChangeTupleList, 
                 tuple => CurrentGeneration.SetCell(tuple.Item1, tuple.Item2, tuple.Item3)
             );
+        }
+
+        private int GetNumberOfAliveNeighbors(Generation generation, Cell cell)
+        {
+            int numberOfAliveNeighbours = 0;
+
+            List<Cell> neighboringCells = new List<Cell>
+            {
+                generation.GetCell(cell.Row - 1, cell.Column - 1),   // Top-left
+                generation.GetCell(cell.Row - 1, cell.Column + 1),   // Top-right
+                generation.GetCell(cell.Row, cell.Column + 1),       // Right
+                generation.GetCell(cell.Row + 1, cell.Column + 1),   // Bottom- right
+                generation.GetCell(cell.Row + 1, cell.Column),       // Bottom
+                generation.GetCell(cell.Row + 1, cell.Column - 1),   // Bottom-left
+                generation.GetCell(cell.Row, cell.Column - 1),        // Left
+                generation.GetCell(cell.Row - 1, cell.Column),       // Top
+            };
+
+            neighboringCells.ForEach(
+                neighboringCell => numberOfAliveNeighbours += 
+                    (neighboringCell != null && neighboringCell.Alive) ? 1 : 0
+            );
+
+            return numberOfAliveNeighbours;
         }
     }
 }

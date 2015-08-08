@@ -53,29 +53,6 @@ namespace ConwaysGameOfLife.Models
 
             return WorldGrid[row, column];
         }
-
-        public int GetNumberOfAliveNeighbors(Cell cell)
-        {
-            int numberOfAliveNeighbours = 0;
-
-            List<Cell> neighboringCells = new List<Cell>
-            {
-                GetCell(cell.Row - 1, cell.Column - 1),   // Top-left
-                GetCell(cell.Row - 1, cell.Column),       // Top
-                GetCell(cell.Row - 1, cell.Column + 1),   // Top-right
-                GetCell(cell.Row, cell.Column + 1),       // Right
-                GetCell(cell.Row + 1, cell.Column + 1),   // Bottom- right
-                GetCell(cell.Row + 1, cell.Column),       // Bottom
-                GetCell(cell.Row + 1, cell.Column - 1),   // Bottom-left
-                GetCell(cell.Row, cell.Column - 1)        // Left
-            };
-
-            neighboringCells.ForEach(
-                neighboringCell => numberOfAliveNeighbours += (neighboringCell != null && neighboringCell.Alive) ? 1 : 0
-            );
-
-            return numberOfAliveNeighbours;
-        }
         
         public override string ToString()
         {

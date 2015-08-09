@@ -52,8 +52,13 @@
   <ItemGroup>
     <Compile Include="LifeEngineTests.cs" />
     <Compile Include="GenerationTests.cs" />
-    <Compile Include="CellTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ConwaysGameOfLife\ConwaysGameOfLife.csproj">
+      <Project>{e51344fe-a754-4a45-92dc-cdac16026664}</Project>
+      <Name>ConwaysGameOfLife</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

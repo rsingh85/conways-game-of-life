@@ -11,21 +11,20 @@ namespace ConwaysGameOfLife.Models
         /// <summary>
         /// A two-dimensional array representing the world.
         /// </summary>
-        private Cell[,] WorldGrid { get; set; }
+        private readonly Cell[,] worldGrid;
 
         /// <summary>
-        /// Size of the world.
+        /// Get the size of the world.
         /// </summary>
         public int WorldSize { get; private set; }
-
-
+        
         /// <summary>
         /// Initialises a new instance of a Generation.
         /// </summary>
         /// <param name="worldSize">Size of the world.</param>
         public Generation(int worldSize)
         {
-            WorldGrid = new Cell[worldSize, worldSize];
+            worldGrid = new Cell[worldSize, worldSize];
             WorldSize = worldSize;
 
             InitialiseWorldGrid();
@@ -38,7 +37,24 @@ namespace ConwaysGameOfLife.Models
         {
             for (int row = 0; row < WorldSize; row++)
                 for (int column = 0; column < WorldSize; column++)
-                    WorldGrid[row, column] = new Cell(row, column, false);
+                    worldGrid[row, column] = new Cell(row, column, false);
+        }
+
+        /// <summary>
+        /// Gets a specified cell.
+        /// </summary>
+        /// <param name="row">Row index of the cell.</param>
+        /// <param name="column">Column index of the cell.</param>
+        /// <returns>The specified cell.</returns>
+        public Cell GetCell(int row, int column)
+        {
+            if (row < 0 || row >= WorldSize)
+                return null;
+
+            if (column < 0 || column >= WorldSize)
+                return null;
+
+            return worldGrid[row, column];
         }
 
         /// <summary>
@@ -60,22 +76,16 @@ namespace ConwaysGameOfLife.Models
         }
 
         /// <summary>
-        /// Gets a specified cell.
+        /// Toggles the living status of a cell.
         /// </summary>
         /// <param name="row">Row index of the cell.</param>
-        /// <param name="column">Column index of the cell.</param>
-        /// <returns>The specified cell.</returns>
-        public Cell GetCell(int row, int column)
+        /// <param name="column">Colummn index of cell.</param>
+        public void ToggleCell(int row, int column)
         {
-            if (row < 0 || row >= WorldSize)
-                return null;
-
-            if (column < 0 || column >= WorldSize)
-                return null;
-
-            return WorldGrid[row, column];
+            Cell cell = GetCell(row, column);
+            cell.Alive = !cell.Alive;
         }
-        
+
         /// <summary>
         /// Builds a string representation of this generation.
         /// </summary>

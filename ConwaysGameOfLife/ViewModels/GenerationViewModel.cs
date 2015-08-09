@@ -16,6 +16,11 @@ namespace ConwaysGameOfLife.ViewModels
         private readonly LifeEngine engine;
 
         /// <summary>
+        /// Gets the current generation world size.
+        /// </summary>
+        public int WorldSize { get { return engine.CurrentGeneration.WorldSize; } }
+
+        /// <summary>
         /// RelayCommand for evolving the current generation.
         /// </summary>
         public RelayCommand<object> EvolveCommand { get; private set; }
@@ -24,14 +29,6 @@ namespace ConwaysGameOfLife.ViewModels
         /// RelayCommand for toggling a particular cell's life.
         /// </summary>
         public RelayCommand<string> ToggleCellLifeCommand { get; private set; }
-
-        /// <summary>
-        /// Gets the current generation.
-        /// </summary>
-        public Generation CurrentGeneration
-        {
-            get { return engine.CurrentGeneration;  }
-        }
 
         /// <summary>
         /// Initialises a new instance of GenerationViewModel with the specified world size.
@@ -43,6 +40,17 @@ namespace ConwaysGameOfLife.ViewModels
             ToggleCellLifeCommand = new RelayCommand<string>((cellRowColumn) => ToggleCellLife(cellRowColumn));
             
             engine = new LifeEngine(new Generation(worldSize));
+        }
+
+        /// <summary>
+        /// Gets the specified cell from the current generation.
+        /// </summary>
+        /// <param name="row">Row index.</param>
+        /// <param name="column">Column index.</param>
+        /// <returns></returns>
+        public Cell GetCell(int row, int column)
+        {
+            return engine.CurrentGeneration.GetCell(row, column);
         }
 
         /// <summary>
@@ -64,8 +72,7 @@ namespace ConwaysGameOfLife.ViewModels
             int row = int.Parse(cellRowSplit[0]);
             int column = int.Parse(cellRowSplit[1]);
 
-            Cell cell = engine.CurrentGeneration.GetCell(row, column);
-            cell.Alive = !cell.Alive;
+            engine.CurrentGeneration.ToggleCell(row, column);
         }
     }
 }

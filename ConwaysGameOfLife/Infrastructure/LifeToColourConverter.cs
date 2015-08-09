@@ -14,7 +14,7 @@ namespace ConwaysGameOfLife.Infrastructure
         /// <summary>
         /// Default colour for a living cell.
         /// </summary>
-        public static SolidColorBrush AliveCellColour = Brushes.Green;
+        public static SolidColorBrush AliveCellColour = Brushes.Black;
 
         /// <summary>
         /// Default colour for a dead cell.

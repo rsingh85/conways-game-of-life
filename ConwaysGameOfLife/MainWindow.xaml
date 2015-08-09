@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConradsGameOfLife"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid Name="WorldGrid">
+        Title="Conway's Game of Life" Height="350" Width="525">
 
-    </Grid>
+    <DockPanel Height="Auto">
+        <Button DockPanel.Dock="Top" Command="{Binding EvolveCommand}">Evolve</Button>
+        <Grid DockPanel.Dock="Bottom" Name="WorldGrid" ShowGridLines="True" Height="Auto"></Grid>
+    </DockPanel>
 </Window>

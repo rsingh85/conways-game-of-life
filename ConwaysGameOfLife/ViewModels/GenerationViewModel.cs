@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 using ConwaysGameOfLife.Core;
 using ConwaysGameOfLife.Models;
+using ConwaysGameOfLife.Infrastructure;
 
 namespace ConwaysGameOfLife.ViewModels
 {
@@ -15,17 +17,55 @@ namespace ConwaysGameOfLife.ViewModels
     /// </summary>
     public class GenerationViewModel
     {
-        private readonly Engine _engine;
+        private readonly Engine engine;
+
+        public RelayCommand<object> EvolveCommand { get; private set; }
+        public RelayCommand<string> ToggleCellLifeCommand { get; private set; }
 
         public Generation CurrentGeneration
         {
-            get { return _engine.CurrentGeneration;  }
+            get { return engine.CurrentGeneration;  }
         }
 
-        public GenerationViewModel(Generation initialGeneration)
+        public GenerationViewModel(int worldSize)
         {
-            _engine = new Engine(initialGeneration);
+            engine = new Engine(new Generation(worldSize));
             
+            EvolveCommand = new RelayCommand<object>(
+                _ => EvolveGeneration(), 
+                _ => CanEvolveGeneration()
+            );
+            
+            ToggleCellLifeCommand = new RelayCommand<string>(
+                (cellRowColumn) => ToggleCellLife(cellRowColumn), 
+                _ => CanToggleCellLife()
+            );
+        }
+
+        private void EvolveGeneration()
+        {
+            engine.EvolveToNextGeneration();
+        }
+
+        private bool CanEvolveGeneration()
+        {
+            return true;
+        }
+
+        private void ToggleCellLife(string cellRowColumn)
+        {
+            string[] cellRowSplit = cellRowColumn.Split(',');
+
+            int row = int.Parse(cellRowSplit[0]);
+            int column = int.Parse(cellRowSplit[1]);
+
+            Cell cell = engine.CurrentGeneration.GetCell(row, column);
+            cell.Alive = !cell.Alive;
+        }
+
+        private bool CanToggleCellLife()
+        {
+            return true;
         }
     }
 }

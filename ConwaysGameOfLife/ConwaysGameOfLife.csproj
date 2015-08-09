@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Infrastructure\Converters\LifeToColourConverter.cs" />
+    <Compile Include="Infrastructure\RelayCommand.cs" />
     <Compile Include="Models\ObservableBase.cs" />
     <Compile Include="ViewModels\GenerationViewModel.cs" />
     <Page Include="MainWindow.xaml">

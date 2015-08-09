@@ -22,5 +22,14 @@ namespace ConwaysGameOfLife.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("25")]
+        public int WorldSize {
+            get {
+                return ((int)(this["WorldSize"]));
+            }
+        }
     }
 }

@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using ConwaysGameOfLife.Core;
 using ConwaysGameOfLife.Models;
 using ConwaysGameOfLife.ViewModels;
+using ConwaysGameOfLife.Infrastructure.Converters;
 
 namespace ConradsGameOfLife
 {
@@ -27,46 +28,52 @@ namespace ConradsGameOfLife
         public MainWindow()
         {
             InitializeComponent();
-            
-            var generationViewModel = new GenerationViewModel(
-                GetInitialGenerationFromUI()
+
+            GenerationViewModel generationViewModel = new GenerationViewModel(
+                ConwaysGameOfLife.Properties.Settings.Default.WorldSize
             );
             
-            DataContext = generationViewModel;
-
             BuildGridUI(generationViewModel);
+
+            DataContext = generationViewModel;
         }
 
         private void BuildGridUI(GenerationViewModel generationViewModel)
-        {
-            const int WorldSize = 10;
+        { 
+            int worldSize = generationViewModel.CurrentGeneration.WorldSize;
 
-            WorldGrid.ShowGridLines = true;
-
-            for (int row = 0; row < WorldSize; row++)
+            for (int row = 0; row < worldSize; row++)
             {
-                // Add a row
                 WorldGrid.RowDefinitions.Add(new RowDefinition());
 
-                for (int column = 0; column < WorldSize; column++)
+                for (int column = 0; column < worldSize; column++)
                 {
-                    // If it's the first row, add a column
                     if (row == 0)
+                    {
                         WorldGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                    }
 
                     Cell cell = generationViewModel.CurrentGeneration.GetCell(row, column);
                     
                     TextBlock cellTextBlock = new TextBlock();
                     cellTextBlock.DataContext = cell;
-                    cellTextBlock.Background = Brushes.Red;
+                    cellTextBlock.Background = LifeToColourConverter.DeadCellColour;
+                    
+                    InputBinding cellTeckBlockCommandInputBinding = new InputBinding(
+                        generationViewModel.ToggleCellLifeCommand, 
+                        new MouseGesture(MouseAction.LeftClick)
+                    );
+                    cellTeckBlockCommandInputBinding.CommandParameter = string.Format("{0},{1}", row, column);
+
+                    cellTextBlock.InputBindings.Add(cellTeckBlockCommandInputBinding);
 
                     Binding cellAliveBinding = new Binding();
                     cellAliveBinding.Source = cell;
                     cellAliveBinding.Path = new PropertyPath("Alive");
                     cellAliveBinding.Mode = BindingMode.TwoWay;
-                    cellAliveBinding.Converter = new BooleanToVisibilityConverter();
+                    cellAliveBinding.Converter = new LifeToColourConverter();
 
-                    cellTextBlock.SetBinding(TextBlock.VisibilityProperty, cellAliveBinding);
+                    cellTextBlock.SetBinding(TextBlock.BackgroundProperty, cellAliveBinding);
 
                     Grid.SetRow(cellTextBlock, row);
                     Grid.SetColumn(cellTextBlock, column);
@@ -74,22 +81,6 @@ namespace ConradsGameOfLife
                     WorldGrid.Children.Add(cellTextBlock);
                 }
             }
-        }
-
-        private Generation GetInitialGenerationFromUI()
-        {
-            // TODO: Build a Generation object from current UI state
-
-            var generation = new Generation(100);
-            generation.SetCell(0, 0, true);
-            generation.SetCell(0, 1, true);
-
-            return generation;
-        }
-
-        private void AButton_Click(object sender, RoutedEventArgs e)
-        {
-            ((Cell)DataContext).Alive = false;
         }
     }
 }

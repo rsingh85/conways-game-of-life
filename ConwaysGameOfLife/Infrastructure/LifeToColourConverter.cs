@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media;
 
@@ -20,7 +16,7 @@ namespace ConwaysGameOfLife.Infrastructure
 
             if (value is bool)
             {
-                alive = (bool)value;
+                alive = (bool) value;
             }
 
             return alive ? AliveCellColour : DeadCellColour;
@@ -30,7 +26,7 @@ namespace ConwaysGameOfLife.Infrastructure
         {
             if (value is SolidColorBrush)
             {
-                return ((SolidColorBrush)value) == AliveCellColour;
+                return ((SolidColorBrush) value) == AliveCellColour;
             }
 
             return false;

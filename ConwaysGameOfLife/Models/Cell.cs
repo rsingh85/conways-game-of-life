@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ConwaysGameOfLife.Models
+﻿namespace ConwaysGameOfLife.Models
 {
     /// <summary>
     /// Represents a single cell, its position and whether it is dead or alive.

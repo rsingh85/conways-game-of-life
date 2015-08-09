@@ -9,12 +9,24 @@ namespace ConwaysGameOfLife.Models
     /// <summary>
     /// Represents a single cell, its position and whether it is dead or alive.
     /// </summary>
-    public class Cell
+    public class Cell : ObservableBase
     {
         public int Row { get; set; }
         public int Column { get; set; }
-        
-        public bool Alive { get; set; }
+
+        private bool alive;
+        public bool Alive
+        {
+            get { return alive; }
+            set
+            {
+                if (value != alive)
+                {
+                    alive = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public Cell(int row, int column, bool alive)
         {

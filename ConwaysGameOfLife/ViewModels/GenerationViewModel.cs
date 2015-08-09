@@ -17,9 +17,15 @@ namespace ConwaysGameOfLife.ViewModels
     {
         private readonly Engine _engine;
 
+        public Generation CurrentGeneration
+        {
+            get { return _engine.CurrentGeneration;  }
+        }
+
         public GenerationViewModel(Generation initialGeneration)
         {
             _engine = new Engine(initialGeneration);
+            
         }
     }
 }

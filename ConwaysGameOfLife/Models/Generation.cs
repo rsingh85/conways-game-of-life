@@ -20,12 +20,8 @@ namespace ConwaysGameOfLife.Models
         private void InitialiseWorldGrid()
         {
             for (int row = 0; row < WorldSize; row++)
-            {
                 for (int column = 0; column < WorldSize; column++)
-                {
                     WorldGrid[row, column] = new Cell(row, column, false);
-                }
-            }
         }
 
         public void SetCell(int row, int column, bool alive)

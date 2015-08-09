@@ -9,10 +9,8 @@ namespace ConwaysGameOfLife.Models
 
         protected void OnPropertyChanged([CallerMemberName] string memberName = "")
         {
-            if (PropertyChanged != null)
-            {
+            if (PropertyChanged != null)            
                 PropertyChanged(this, new PropertyChangedEventArgs(memberName));
-            }
         }
     }
 }

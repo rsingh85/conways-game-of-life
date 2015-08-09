@@ -15,19 +15,15 @@ namespace ConwaysGameOfLife.Infrastructure
             bool alive = false;
 
             if (value is bool)
-            {
                 alive = (bool) value;
-            }
-
+            
             return alive ? AliveCellColour : DeadCellColour;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is SolidColorBrush)
-            {
                 return ((SolidColorBrush) value) == AliveCellColour;
-            }
 
             return false;
         }

@@ -31,19 +31,14 @@ namespace ConwaysGameOfLife.Core
 
                     int numberOfAliveNeighbors = GetNumberOfAliveNeighbors(CurrentGeneration, cell);
 
-                    if (numberOfAliveNeighbors < UnderPopulationThreshold ||
-                            numberOfAliveNeighbors > OverPopulationThreshold)
-                    {
+                    if (numberOfAliveNeighbors < UnderPopulationThreshold || numberOfAliveNeighbors > OverPopulationThreshold)
                         cellLifeChangeTupleList.Add(new Tuple<int, int, bool>(row, column, false));
-                    }
                     else if (!cell.Alive && numberOfAliveNeighbors == ReproductionThreshold)
-                    {
                         cellLifeChangeTupleList.Add(new Tuple<int, int, bool>(row, column, true));
-                    }
                 }
             }
 
-            Parallel.ForEach<Tuple<int, int, bool>>(
+            Parallel.ForEach(
                 cellLifeChangeTupleList, 
                 tuple => CurrentGeneration.SetCell(tuple.Item1, tuple.Item2, tuple.Item3)
             );

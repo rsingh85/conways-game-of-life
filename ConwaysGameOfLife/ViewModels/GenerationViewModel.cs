@@ -10,7 +10,7 @@ namespace ConwaysGameOfLife.ViewModels
     /// </summary>
     public class GenerationViewModel
     {
-        private readonly Engine engine;
+        private readonly LifeEngine engine;
 
         public RelayCommand<object> EvolveCommand { get; private set; }
         public RelayCommand<string> ToggleCellLifeCommand { get; private set; }
@@ -22,7 +22,7 @@ namespace ConwaysGameOfLife.ViewModels
 
         public GenerationViewModel(int worldSize)
         {
-            engine = new Engine(new Generation(worldSize));
+            engine = new LifeEngine(new Generation(worldSize));
             
             EvolveCommand = new RelayCommand<object>(
                 _ => EvolveGeneration(), 

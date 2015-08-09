@@ -6,11 +6,11 @@ using ConwaysGameOfLife.Models;
 
 namespace ConwaysGameOfLife.Core
 {
-    public class Engine
+    public class LifeEngine
     {
         public Generation CurrentGeneration { get; private set; }
 
-        public Engine(Generation initialGeneration)
+        public LifeEngine(Generation initialGeneration)
         {
             CurrentGeneration = initialGeneration;
         }

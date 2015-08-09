@@ -68,7 +68,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Cell.cs" />
-    <Compile Include="Core\Engine.cs" />
+    <Compile Include="Core\LifeEngine.cs" />
     <Compile Include="Models\Generation.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

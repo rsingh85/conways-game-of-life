@@ -72,7 +72,7 @@ namespace ConwaysGameOfLife.ViewModels
             int row = int.Parse(cellRowSplit[0]);
             int column = int.Parse(cellRowSplit[1]);
 
-            engine.CurrentGeneration.ToggleCell(row, column);
+            engine.CurrentGeneration.ToggleCellLife(row, column);
         }
     }
 }

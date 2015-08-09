@@ -46,7 +46,7 @@ namespace ConwaysGameOfLife.Tests
             Generation initialGeneration = new Generation(worldSize: 2);
 
             // Act
-            initialGeneration.ToggleCell(0, 0);
+            initialGeneration.ToggleCellLife(0, 0);
 
             // Assert
             Assert.AreEqual(initialGeneration.GetCell(0, 0).Alive, true);
@@ -60,7 +60,7 @@ namespace ConwaysGameOfLife.Tests
             initialGeneration.SetCell(0, 0, true);
 
             // Act
-            initialGeneration.ToggleCell(0, 0);
+            initialGeneration.ToggleCellLife(0, 0);
 
             // Assert
             Assert.AreEqual(initialGeneration.GetCell(0, 0).Alive, false);

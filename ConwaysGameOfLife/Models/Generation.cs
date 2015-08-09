@@ -80,7 +80,7 @@ namespace ConwaysGameOfLife.Models
         /// </summary>
         /// <param name="row">Row index of the cell.</param>
         /// <param name="column">Colummn index of cell.</param>
-        public void ToggleCell(int row, int column)
+        public void ToggleCellLife(int row, int column)
         {
             Cell cell = GetCell(row, column);
             cell.Alive = !cell.Alive;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace ConwaysGameOfLife.Infrastructure.Converters
+namespace ConwaysGameOfLife.Infrastructure
 {
     public class LifeToColourConverter : IValueConverter
     {

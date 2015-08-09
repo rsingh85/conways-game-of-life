@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 using ConwaysGameOfLife.Core;
 using ConwaysGameOfLife.Models;
 using ConwaysGameOfLife.ViewModels;
-using ConwaysGameOfLife.Infrastructure.Converters;
+using ConwaysGameOfLife.Infrastructure;
 
 namespace ConradsGameOfLife
 {

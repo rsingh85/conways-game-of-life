@@ -11,4 +11,4 @@ This implementation is built on the .NET Framework version 4.5.2 with C# and Win
 
 **Why?**
 
-I was inspired by Lea Verou's play-by-play Pluralsight video on implementing the Conway's Game of Life in JavaScript (with HTML/CSS) and thought it would be a fun Sunday exercise.
+I was inspired by Lea Verou's play-by-play Pluralsight video on implementing Conway's Game of Life in JavaScript (with HTML/CSS) and thought it would be a fun Sunday exercise.

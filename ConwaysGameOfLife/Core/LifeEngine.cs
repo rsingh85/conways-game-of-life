@@ -6,15 +6,28 @@ using ConwaysGameOfLife.Models;
 
 namespace ConwaysGameOfLife.Core
 {
+    /// <summary>
+    /// The engine that implements Conway's Game of Life rules.
+    /// </summary>
     public class LifeEngine
     {
+        /// <summary>
+        /// Gets the current generation.
+        /// </summary>
         public Generation CurrentGeneration { get; private set; }
 
+        /// <summary>
+        /// Initialises a new instance of the LifeEngine with a specified initial generation.
+        /// </summary>
+        /// <param name="initialGeneration">The initial generation to start from.</param>
         public LifeEngine(Generation initialGeneration)
         {
             CurrentGeneration = initialGeneration;
         }
 
+        /// <summary>
+        /// Applies Conway's life rules to evolve the current generation into the next generation.
+        /// </summary>
         public void EvolveToNextGeneration()
         {
             const int UnderPopulationThreshold = 2,
@@ -44,6 +57,12 @@ namespace ConwaysGameOfLife.Core
             );
         }
 
+        /// <summary>
+        /// Gets the number of neighbor cells that are alive for a particular cell.
+        /// </summary>
+        /// <param name="generation">The generation.</param>
+        /// <param name="cell">The cell whose living neighbour are being counted.</param>
+        /// <returns>Number of alive neighbours for the specified cell.</returns>
         private int GetNumberOfAliveNeighbors(Generation generation, Cell cell)
         {
             int numberOfAliveNeighbours = 0;

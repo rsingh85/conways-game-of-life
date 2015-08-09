@@ -1,14 +1,28 @@
 ﻿namespace ConwaysGameOfLife.Models
 {
     /// <summary>
-    /// Represents a single cell, its position and whether it is dead or alive.
+    /// Represents a single observable cell, its position and whether it is dead or alive.
     /// </summary>
     public class Cell : ObservableBase
     {
+        /// <summary>
+        /// Row index of this cell.
+        /// </summary>
         public int Row { get; set; }
+
+        /// <summary>
+        /// Column index of this cell.
+        /// </summary>
         public int Column { get; set; }
 
+        /// <summary>
+        /// A boolean value that indicates if this cell is dead or alive.
+        /// </summary>
         private bool alive;
+
+        /// <summary>
+        /// Gets or sets a value that indicates of this cell is dead or alive.
+        /// </summary>
         public bool Alive
         {
             get { return alive; }
@@ -22,6 +36,12 @@
             }
         }
 
+        /// <summary>
+        /// Initialises a new instance of a Cell.
+        /// </summary>
+        /// <param name="row">Row index of the cell.</param>
+        /// <param name="column">Column index of the cell.</param>
+        /// <param name="alive">A boolean value that indicates if this cell is dead or alive.</param>
         public Cell(int row, int column, bool alive)
         {
             Row = row;
@@ -29,6 +49,10 @@
             Alive = alive;
         }
 
+        /// <summary>
+        /// Builds a string representation of this cell.
+        /// </summary>
+        /// <returns>String representation of this cell.</returns>
         public override string ToString()
         {
             return string.Format(

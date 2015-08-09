@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using ConwaysGameOfLife.Models;
 
@@ -24,8 +23,11 @@ namespace ConwaysGameOfLife.Tests
         [TestMethod]
         public void Should_SetAllCellsToDead_When_Initialised()
         {
-            // Arrange and Act
-            Generation generation = new Generation(worldSize: 5);
+            // Arrange
+            Generation generation;
+            
+            // Act
+            generation = new Generation(worldSize: 5);
 
             // Assert
             for (int row = 0; row < generation.WorldSize; row++)
@@ -35,6 +37,33 @@ namespace ConwaysGameOfLife.Tests
                     Assert.AreEqual(generation.GetCell(row, column).Alive, false);
                 }
             }
+        }
+
+        [TestMethod]
+        public void Should_MakeCellAlive_When_DeadCellToggled()
+        {
+            // Arrange
+            Generation initialGeneration = new Generation(worldSize: 2);
+
+            // Act
+            initialGeneration.ToggleCell(0, 0);
+
+            // Assert
+            Assert.AreEqual(initialGeneration.GetCell(0, 0).Alive, true);
+        }
+
+        [TestMethod]
+        public void Should_MakeCellDead_When_AliveCellToggled()
+        {
+            // Arrange
+            Generation initialGeneration = new Generation(worldSize: 2);
+            initialGeneration.SetCell(0, 0, true);
+
+            // Act
+            initialGeneration.ToggleCell(0, 0);
+
+            // Assert
+            Assert.AreEqual(initialGeneration.GetCell(0, 0).Alive, false);
         }
     }
 }

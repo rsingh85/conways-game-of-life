@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using ConwaysGameOfLife.Core;
 using ConwaysGameOfLife.Models;
@@ -21,6 +20,40 @@ namespace ConwaysGameOfLife.Tests
 
             // Assert
             Assert.AreEqual(expected, engine.CurrentGeneration.ToString());
+        }
+        
+        [TestMethod]
+        public void Should_KillCell_When_CellHasFewerThanTwoNeighbors()
+        {
+            // Arrange 
+            Generation initialGeneration = new Generation(worldSize: 5);
+            initialGeneration.ToggleCell(0, 0);
+            initialGeneration.ToggleCell(0, 1);
+
+            // Act
+            LifeEngine engine = new LifeEngine(initialGeneration);
+            engine.EvolveToNextGeneration();
+
+            // Assert
+            Assert.AreEqual(initialGeneration.GetCell(0, 0).Alive, false);
+            Assert.AreEqual(initialGeneration.GetCell(0, 1).Alive, false);
+        }
+
+        [TestMethod]
+        public void Should_LetCellLive_When_CellHassTwoOrThreeLiveNeighbours()
+        {
+            // Arrange 
+            Generation initialGeneration = new Generation(worldSize: 5);
+            initialGeneration.ToggleCell(0, 0);
+            initialGeneration.ToggleCell(0, 1);
+            initialGeneration.ToggleCell(0, 2);
+
+            // Act
+            LifeEngine engine = new LifeEngine(initialGeneration);
+            engine.EvolveToNextGeneration();
+
+            // Assert
+            Assert.AreEqual(initialGeneration.GetCell(0, 1).Alive, true);
         }
     }
 }

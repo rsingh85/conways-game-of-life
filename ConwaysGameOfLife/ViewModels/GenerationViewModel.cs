@@ -8,7 +8,7 @@ namespace ConwaysGameOfLife.ViewModels
     /// A view model to represent the current generation in
     /// the game of life.
     /// </summary>
-    public class GenerationViewModel
+    public class GenerationViewModel : ObservableBase
     {
         /// <summary>
         /// Life engine instance.
@@ -19,6 +19,24 @@ namespace ConwaysGameOfLife.ViewModels
         /// Gets the current generation world size.
         /// </summary>
         public int WorldSize { get { return engine.CurrentGeneration.WorldSize; } }
+        
+        /// <summary>
+        /// Number of generations the current generation has evolved from.
+        /// </summary>
+        private int generationNumber;
+
+        /// <summary>
+        /// Gets the current generation number.
+        /// </summary>
+        public int GenerationNumber
+        {
+            get { return generationNumber; }
+            private set
+            {
+                generationNumber = value;
+                OnPropertyChanged();
+            }
+        }
 
         /// <summary>
         /// RelayCommand for evolving the current generation.
@@ -59,6 +77,7 @@ namespace ConwaysGameOfLife.ViewModels
         private void EvolveGeneration()
         {
             engine.EvolveToNextGeneration();
+            GenerationNumber++;
         }
 
         /// <summary>

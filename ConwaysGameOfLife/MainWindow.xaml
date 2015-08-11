@@ -8,6 +8,7 @@
         Title="Conway's Game of Life" Height="350" Width="525">
 
     <DockPanel Height="Auto">
+        <TextBlock DockPanel.Dock="Top" Text="{Binding GenerationNumber, Mode=OneWay, StringFormat='Generation: \{0\}'}"></TextBlock>
         <Button DockPanel.Dock="Top" Command="{Binding EvolveCommand}">Evolve</Button>
         <Grid DockPanel.Dock="Bottom" Name="WorldGrid" ShowGridLines="True" Height="Auto"></Grid>
     </DockPanel>

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace ConwaysGameOfLife.Models
+namespace ConwaysGameOfLife.Infrastructure
 {
     public class ObservableBase : INotifyPropertyChanged
     {

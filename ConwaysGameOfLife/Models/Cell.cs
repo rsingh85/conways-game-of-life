@@ -1,4 +1,6 @@
-﻿namespace ConwaysGameOfLife.Models
+﻿using ConwaysGameOfLife.Infrastructure;
+
+namespace ConwaysGameOfLife.Models
 {
     /// <summary>
     /// Represents a single observable cell, its position and whether it is dead or alive.
@@ -28,11 +30,8 @@
             get { return alive; }
             set
             {
-                if (value != alive)
-                {
-                    alive = value;
-                    OnPropertyChanged();
-                }
+                alive = value;
+                OnPropertyChanged();
             }
         }
 

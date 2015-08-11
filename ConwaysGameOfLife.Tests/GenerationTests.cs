@@ -11,7 +11,7 @@ namespace ConwaysGameOfLife.Tests
         public void Should_ReturnNull_When_OutOfBoundsCellRetrieved()
         {
             // Arrange
-            Generation generation = new Generation(worldSize: 2);
+            Generation generation = new Generation(universeSize: 2);
 
             // Act
             Cell cell = generation.GetCell(row: 3, column: 3);
@@ -27,12 +27,12 @@ namespace ConwaysGameOfLife.Tests
             Generation generation;
             
             // Act
-            generation = new Generation(worldSize: 5);
+            generation = new Generation(universeSize: 5);
 
             // Assert
-            for (int row = 0; row < generation.WorldSize; row++)
+            for (int row = 0; row < generation.UniverseSize; row++)
             {
-                for (int column = 0; column < generation.WorldSize; column++)
+                for (int column = 0; column < generation.UniverseSize; column++)
                 {
                     Assert.AreEqual(generation.GetCell(row, column).Alive, false);
                 }
@@ -43,7 +43,7 @@ namespace ConwaysGameOfLife.Tests
         public void Should_MakeCellAlive_When_DeadCellToggled()
         {
             // Arrange
-            Generation initialGeneration = new Generation(worldSize: 2);
+            Generation initialGeneration = new Generation(universeSize: 2);
 
             // Act
             initialGeneration.ToggleCellLife(0, 0);
@@ -56,7 +56,7 @@ namespace ConwaysGameOfLife.Tests
         public void Should_MakeCellDead_When_AliveCellToggled()
         {
             // Arrange
-            Generation initialGeneration = new Generation(worldSize: 2);
+            Generation initialGeneration = new Generation(universeSize: 2);
             initialGeneration.SetCell(0, 0, true);
 
             // Act

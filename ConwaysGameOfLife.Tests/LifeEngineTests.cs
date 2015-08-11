@@ -12,7 +12,7 @@ namespace ConwaysGameOfLife.Tests
         public void Should_NotAlterInitialGenerationCells_When_Initialised()
         {
             // Arrange 
-            Generation initialGeneration = new Generation(worldSize: 5);
+            Generation initialGeneration = new Generation(universeSize: 5);
             string expected = initialGeneration.ToString();
 
             // Act
@@ -26,7 +26,7 @@ namespace ConwaysGameOfLife.Tests
         public void Should_KillCell_When_CellHasFewerThanTwoNeighbors()
         {
             // Arrange 
-            Generation initialGeneration = new Generation(worldSize: 5);
+            Generation initialGeneration = new Generation(universeSize: 5);
             initialGeneration.ToggleCellLife(0, 0);
             initialGeneration.ToggleCellLife(0, 1);
 
@@ -43,7 +43,7 @@ namespace ConwaysGameOfLife.Tests
         public void Should_LetCellLive_When_CellHassTwoOrThreeLiveNeighbours()
         {
             // Arrange 
-            Generation initialGeneration = new Generation(worldSize: 5);
+            Generation initialGeneration = new Generation(universeSize: 5);
             initialGeneration.ToggleCellLife(0, 0);
             initialGeneration.ToggleCellLife(0, 1);
             initialGeneration.ToggleCellLife(0, 2);
@@ -60,7 +60,7 @@ namespace ConwaysGameOfLife.Tests
         public void Should_KillCell_When_CellHasMoreThanTreeLiveNeighbours()
         {
             // Arrange 
-            Generation initialGeneration = new Generation(worldSize: 5);
+            Generation initialGeneration = new Generation(universeSize: 5);
             initialGeneration.ToggleCellLife(0, 0);
             initialGeneration.ToggleCellLife(0, 1);
             initialGeneration.ToggleCellLife(0, 2);
@@ -79,7 +79,7 @@ namespace ConwaysGameOfLife.Tests
         public void Should_GiveLifeToCell_When_CellHasTreeLiveNeighbours()
         {
             // Arrange 
-            Generation initialGeneration = new Generation(worldSize: 5);
+            Generation initialGeneration = new Generation(universeSize: 5);
             initialGeneration.ToggleCellLife(0, 0);
             initialGeneration.ToggleCellLife(0, 2);
             initialGeneration.ToggleCellLife(1, 0);

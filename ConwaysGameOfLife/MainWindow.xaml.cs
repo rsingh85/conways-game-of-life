@@ -26,15 +26,9 @@ namespace ConradsGameOfLife
         public MainWindow()
         {
             InitializeComponent();
-            
-            Title = string.Format(
-                "{0} - World Size = {1} x {1}", 
-                Title, 
-                ConwaysGameOfLife.Properties.Settings.Default.WorldSize
-            );
                             
             generationViewModel = new GenerationViewModel(
-                ConwaysGameOfLife.Properties.Settings.Default.WorldSize
+                ConwaysGameOfLife.Properties.Settings.Default.UniverseSize
             );
             
             BuildGridUI(generationViewModel);
@@ -49,16 +43,14 @@ namespace ConradsGameOfLife
         /// <param name="generationViewModel">Generation view model.</param>
         private void BuildGridUI(GenerationViewModel generationViewModel)
         { 
-            int worldSize = generationViewModel.WorldSize;
-
-            for (int row = 0; row < worldSize; row++)
+            for (int row = 0; row < generationViewModel.UniverseSize; row++)
             {
-                WorldGrid.RowDefinitions.Add(new RowDefinition());
+                UniverseGrid.RowDefinitions.Add(new RowDefinition());
 
-                for (int column = 0; column < worldSize; column++)
+                for (int column = 0; column < generationViewModel.UniverseSize; column++)
                 {
                     if (row == 0)
-                        WorldGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                        UniverseGrid.ColumnDefinitions.Add(new ColumnDefinition());
 
                     Cell cell = generationViewModel.GetCell(row, column);
 
@@ -69,7 +61,7 @@ namespace ConradsGameOfLife
                     Grid.SetRow(cellTextBlock, row);
                     Grid.SetColumn(cellTextBlock, column);
                     
-                    WorldGrid.Children.Add(cellTextBlock);
+                    UniverseGrid.Children.Add(cellTextBlock);
                 }
             }
         }

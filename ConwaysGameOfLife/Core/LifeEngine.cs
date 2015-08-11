@@ -36,9 +36,9 @@ namespace ConwaysGameOfLife.Core
 
             IList<Tuple<int, int, bool>> cellLifeChangeTupleList = new List<Tuple<int, int, bool>>();
 
-            for (int row = 0; row < CurrentGeneration.WorldSize; row++)
+            for (int row = 0; row < CurrentGeneration.UniverseSize; row++)
             {
-                for (int column = 0; column < CurrentGeneration.WorldSize; column++)
+                for (int column = 0; column < CurrentGeneration.UniverseSize; column++)
                 {
                     Cell cell = CurrentGeneration.GetCell(row, column);
 

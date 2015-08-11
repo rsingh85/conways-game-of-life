@@ -16,9 +16,9 @@ namespace ConwaysGameOfLife.ViewModels
         private readonly LifeEngine engine;
 
         /// <summary>
-        /// Gets the current generation world size.
+        /// Gets the current universe size.
         /// </summary>
-        public int WorldSize { get { return engine.CurrentGeneration.WorldSize; } }
+        public int UniverseSize { get { return engine.CurrentGeneration.UniverseSize; } }
         
         /// <summary>
         /// Number of generations the current generation has evolved from.
@@ -49,15 +49,15 @@ namespace ConwaysGameOfLife.ViewModels
         public RelayCommand<string> ToggleCellLifeCommand { get; private set; }
 
         /// <summary>
-        /// Initialises a new instance of GenerationViewModel with the specified world size.
+        /// Initialises a new instance of GenerationViewModel with the specified universe size.
         /// </summary>
-        /// <param name="worldSize">World size.</param>
-        public GenerationViewModel(int worldSize)
+        /// <param name="universeSize">Universesize.</param>
+        public GenerationViewModel(int universeSize)
         {
             EvolveCommand = new RelayCommand<object>(_ => EvolveGeneration());
             ToggleCellLifeCommand = new RelayCommand<string>((cellRowColumn) => ToggleCellLife(cellRowColumn));
             
-            engine = new LifeEngine(new Generation(worldSize));
+            engine = new LifeEngine(new Generation(universeSize));
         }
 
         /// <summary>
@@ -77,6 +77,7 @@ namespace ConwaysGameOfLife.ViewModels
         private void EvolveGeneration()
         {
             engine.EvolveToNextGeneration();
+
             GenerationNumber++;
         }
 

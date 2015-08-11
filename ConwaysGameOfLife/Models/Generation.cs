@@ -9,35 +9,35 @@ namespace ConwaysGameOfLife.Models
     public class Generation
     {
         /// <summary>
-        /// A two-dimensional array representing the world.
+        /// A two-dimensional array representing a finite universe.
         /// </summary>
-        private readonly Cell[,] worldGrid;
+        private readonly Cell[,] universe;
 
         /// <summary>
-        /// Get the size of the world.
+        /// Get the size of the universe.
         /// </summary>
-        public int WorldSize { get; private set; }
+        public int UniverseSize { get; private set; }
         
         /// <summary>
         /// Initialises a new instance of a Generation.
         /// </summary>
-        /// <param name="worldSize">Size of the world.</param>
-        public Generation(int worldSize)
+        /// <param name="universeSize">Size of the universe.</param>
+        public Generation(int universeSize)
         {
-            worldGrid = new Cell[worldSize, worldSize];
-            WorldSize = worldSize;
+            universe = new Cell[universeSize, universeSize];
+            UniverseSize = universeSize;
 
-            InitialiseWorldGrid();
+            InitialiseUniverse();
         }
 
         /// <summary>
-        /// Initialises the world grid.
+        /// Initialises the universe.
         /// </summary>
-        private void InitialiseWorldGrid()
+        private void InitialiseUniverse()
         {
-            for (int row = 0; row < WorldSize; row++)
-                for (int column = 0; column < WorldSize; column++)
-                    worldGrid[row, column] = new Cell(row, column, false);
+            for (int row = 0; row < UniverseSize; row++)
+                for (int column = 0; column < UniverseSize; column++)
+                    universe[row, column] = new Cell(row, column, false);
         }
 
         /// <summary>
@@ -48,17 +48,17 @@ namespace ConwaysGameOfLife.Models
         /// <returns>The specified cell.</returns>
         public Cell GetCell(int row, int column)
         {
-            if (row < 0 || row >= WorldSize)
+            if (row < 0 || row >= UniverseSize)
                 return null;
 
-            if (column < 0 || column >= WorldSize)
+            if (column < 0 || column >= UniverseSize)
                 return null;
 
-            return worldGrid[row, column];
+            return universe[row, column];
         }
 
         /// <summary>
-        /// Sets a particular cell in the world to be dead or alive.
+        /// Sets a particular cell in the universe to be dead or alive.
         /// </summary>
         /// <param name="row">Row index of the cell.</param>
         /// <param name="column">Column index of the cell.</param>
@@ -94,9 +94,9 @@ namespace ConwaysGameOfLife.Models
         {
             var gridString = new StringBuilder();
 
-            for (int row = 0; row < WorldSize; row++)
+            for (int row = 0; row < UniverseSize; row++)
             {
-                for (int column = 0; column < WorldSize; column++)
+                for (int column = 0; column < UniverseSize; column++)
                 {
                     gridString.Append(
                         string.Format("{0} ", GetCell(row, column).Alive ? "1" : "0")

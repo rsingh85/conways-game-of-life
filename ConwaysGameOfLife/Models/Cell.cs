@@ -6,14 +6,14 @@
     public class Cell : ObservableBase
     {
         /// <summary>
-        /// Row index of this cell.
+        /// Gets the row index for this cell.
         /// </summary>
-        public int Row { get; set; }
+        public int Row { get; private set; }
 
         /// <summary>
-        /// Column index of this cell.
+        /// Gets the column index for this cell.
         /// </summary>
-        public int Column { get; set; }
+        public int Column { get; private set; }
 
         /// <summary>
         /// A boolean value that indicates if this cell is dead or alive.

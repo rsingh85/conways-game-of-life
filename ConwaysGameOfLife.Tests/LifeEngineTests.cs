@@ -16,7 +16,7 @@ namespace ConwaysGameOfLife.Tests
             string expected = initialGeneration.ToString();
 
             // Act
-            LifeEngine engine = new LifeEngine(initialGeneration);
+            EvolutionEngine engine = new EvolutionEngine(initialGeneration);
 
             // Assert
             Assert.AreEqual(expected, engine.CurrentGeneration.ToString());
@@ -31,7 +31,7 @@ namespace ConwaysGameOfLife.Tests
             initialGeneration.ToggleCellLife(0, 1);
 
             // Act
-            LifeEngine engine = new LifeEngine(initialGeneration);
+            EvolutionEngine engine = new EvolutionEngine(initialGeneration);
             engine.EvolveToNextGeneration();
 
             // Assert
@@ -49,7 +49,7 @@ namespace ConwaysGameOfLife.Tests
             initialGeneration.ToggleCellLife(0, 2);
 
             // Act
-            LifeEngine engine = new LifeEngine(initialGeneration);
+            EvolutionEngine engine = new EvolutionEngine(initialGeneration);
             engine.EvolveToNextGeneration();
 
             // Assert
@@ -68,7 +68,7 @@ namespace ConwaysGameOfLife.Tests
             initialGeneration.ToggleCellLife(1, 1);
 
             // Act
-            LifeEngine engine = new LifeEngine(initialGeneration);
+            EvolutionEngine engine = new EvolutionEngine(initialGeneration);
             engine.EvolveToNextGeneration();
 
             // Assert
@@ -85,7 +85,7 @@ namespace ConwaysGameOfLife.Tests
             initialGeneration.ToggleCellLife(1, 0);
 
             // Act
-            LifeEngine engine = new LifeEngine(initialGeneration);
+            EvolutionEngine engine = new EvolutionEngine(initialGeneration);
             engine.EvolveToNextGeneration();
 
             // Assert

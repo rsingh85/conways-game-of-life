@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Core\EvolutionResult.cs" />
     <Compile Include="Infrastructure\LifeToColourConverter.cs" />
     <Compile Include="Infrastructure\RelayCommand.cs" />
     <Compile Include="Infrastructure\ObservableBase.cs" />
@@ -68,7 +69,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Cell.cs" />
-    <Compile Include="Core\LifeEngine.cs" />
+    <Compile Include="Core\EvolutionEngine.cs" />
     <Compile Include="Models\Generation.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

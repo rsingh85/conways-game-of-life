@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using ConwaysGameOfLife.Models;
+using System.Linq;
 
 namespace ConwaysGameOfLife.Core
 {
     /// <summary>
     /// The engine that implements Conway's Game of Life rules.
     /// </summary>
-    public class LifeEngine
+    public class EvolutionEngine
     {
         /// <summary>
         /// Gets the current generation.
@@ -17,10 +18,15 @@ namespace ConwaysGameOfLife.Core
         public Generation CurrentGeneration { get; private set; }
 
         /// <summary>
+        /// Gets the current generation number.
+        /// </summary>
+        public int GenerationNumber { get; private set; }
+
+        /// <summary>
         /// Initialises a new instance of the LifeEngine with a specified initial generation.
         /// </summary>
         /// <param name="initialGeneration">The initial generation to start from.</param>
-        public LifeEngine(Generation initialGeneration)
+        public EvolutionEngine(Generation initialGeneration)
         {
             CurrentGeneration = initialGeneration;
         }
@@ -28,7 +34,8 @@ namespace ConwaysGameOfLife.Core
         /// <summary>
         /// Applies Conway's life rules to evolve the current generation into the next generation.
         /// </summary>
-        public void EvolveToNextGeneration()
+        /// <returns>Evolution result.</returns>
+        public EvolutionResult EvolveToNextGeneration()
         {
             const int UnderPopulationThreshold = 2,
                 OverPopulationThreshold = 3,
@@ -44,16 +51,32 @@ namespace ConwaysGameOfLife.Core
 
                     int numberOfAliveNeighbors = GetNumberOfAliveNeighbors(CurrentGeneration, cell);
 
-                    if (numberOfAliveNeighbors < UnderPopulationThreshold || numberOfAliveNeighbors > OverPopulationThreshold)
+                    if (cell.Alive &&
+                            (numberOfAliveNeighbors < UnderPopulationThreshold ||
+                                numberOfAliveNeighbors > OverPopulationThreshold))
+                    {
                         cellLifeChangeTupleList.Add(new Tuple<int, int, bool>(row, column, false));
+                    }
                     else if (!cell.Alive && numberOfAliveNeighbors == ReproductionThreshold)
+                    {
                         cellLifeChangeTupleList.Add(new Tuple<int, int, bool>(row, column, true));
+                    }
                 }
             }
+            if (cellLifeChangeTupleList.Any())
+            {
+                GenerationNumber++;
 
-            Parallel.ForEach(
-                cellLifeChangeTupleList, 
-                tuple => CurrentGeneration.SetCell(tuple.Item1, tuple.Item2, tuple.Item3)
+                Parallel.ForEach(
+                    cellLifeChangeTupleList,
+                    tuple => CurrentGeneration.SetCell(tuple.Item1, tuple.Item2, tuple.Item3)
+                );
+            }
+
+            return new EvolutionResult(
+                populationCount: CurrentGeneration.PopulationCount,
+                evolutionEnded: !cellLifeChangeTupleList.Any(),
+                generationNumber: GenerationNumber
             );
         }
 
@@ -80,7 +103,7 @@ namespace ConwaysGameOfLife.Core
             };
 
             neighboringCells.ForEach(
-                neighboringCell => numberOfAliveNeighbours += 
+                neighboringCell => numberOfAliveNeighbours +=
                     (neighboringCell != null && neighboringCell.Alive) ? 1 : 0
             );
 

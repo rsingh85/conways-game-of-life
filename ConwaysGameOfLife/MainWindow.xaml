@@ -10,9 +10,11 @@
     <DockPanel Height="Auto">
         <TextBlock DockPanel.Dock="Top">
             <TextBlock.Text>
-                <MultiBinding StringFormat="Universe Size: {0}x{0} | Generation #: {1} |">
+                <MultiBinding StringFormat="Universe Size: {0}x{0} | Generation #: {1} | Population Count: {2} | Evolution Ended?: {3}">
                     <Binding Path="UniverseSize" />
                     <Binding Path="GenerationNumber" />
+                    <Binding Path="PopulationCount" />
+                    <Binding Path="EvolutionEnded" />
                 </MultiBinding>
             </TextBlock.Text>
         </TextBlock>

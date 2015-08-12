@@ -17,7 +17,12 @@ namespace ConwaysGameOfLife.Models
         /// Get the size of the universe.
         /// </summary>
         public int UniverseSize { get; private set; }
-        
+
+        /// <summary>
+        /// Gets the current population count.
+        /// </summary>
+        public int PopulationCount { get; private set; }
+
         /// <summary>
         /// Initialises a new instance of a Generation.
         /// </summary>
@@ -28,6 +33,8 @@ namespace ConwaysGameOfLife.Models
             UniverseSize = universeSize;
 
             InitialiseUniverse();
+
+            PopulationCount = 0;
         }
 
         /// <summary>
@@ -72,6 +79,14 @@ namespace ConwaysGameOfLife.Models
                     "The specified row and column do not map to a valid cell."
                 );
 
+            // Before setting the cell's alive status,, if it is currently dead and we're setting it to alive
+            // then we need to increment/decrement the population count appropriately
+
+            if (!cell.Alive && alive)
+                PopulationCount++;
+            else if (cell.Alive && !alive)
+                PopulationCount--;
+
             cell.Alive = alive;
         }
 
@@ -84,6 +99,8 @@ namespace ConwaysGameOfLife.Models
         {
             Cell cell = GetCell(row, column);
             cell.Alive = !cell.Alive;
+
+            PopulationCount += (cell.Alive) ? 1 : -2;
         }
 
         /// <summary>

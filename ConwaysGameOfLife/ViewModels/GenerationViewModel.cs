@@ -13,13 +13,31 @@ namespace ConwaysGameOfLife.ViewModels
         /// <summary>
         /// Life engine instance.
         /// </summary>
-        private readonly LifeEngine engine;
+        private readonly EvolutionEngine engine;
 
         /// <summary>
         /// Gets the current universe size.
         /// </summary>
         public int UniverseSize { get { return engine.CurrentGeneration.UniverseSize; } }
-        
+
+        /// <summary>
+        /// Count of the current population.
+        /// </summary>
+        private int populationCount;
+
+        /// <summary>
+        /// Number
+        /// </summary>
+        public int PopulationCount
+        {
+            get { return populationCount; }
+            private set
+            {
+                populationCount = value;
+                OnPropertyChanged();
+            }
+        }
+
         /// <summary>
         /// Number of generations the current generation has evolved from.
         /// </summary>
@@ -34,6 +52,24 @@ namespace ConwaysGameOfLife.ViewModels
             private set
             {
                 generationNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Indicates whether the generation has stopped evolving.
+        /// </summary>
+        private bool evolutionEnded;
+
+        /// <summary>
+        /// Gets a boolean which indicates if the generation has stopped evolving.
+        /// </summary>
+        public bool EvolutionEnded
+        {
+            get { return evolutionEnded; }
+            private set
+            {
+                evolutionEnded = value;
                 OnPropertyChanged();
             }
         }
@@ -56,8 +92,8 @@ namespace ConwaysGameOfLife.ViewModels
         {
             EvolveCommand = new RelayCommand<object>(_ => EvolveGeneration());
             ToggleCellLifeCommand = new RelayCommand<string>((cellRowColumn) => ToggleCellLife(cellRowColumn));
-            
-            engine = new LifeEngine(new Generation(universeSize));
+
+            engine = new EvolutionEngine(new Generation(universeSize));
         }
 
         /// <summary>
@@ -76,9 +112,11 @@ namespace ConwaysGameOfLife.ViewModels
         /// </summary>
         private void EvolveGeneration()
         {
-            engine.EvolveToNextGeneration();
+            EvolutionResult result = engine.EvolveToNextGeneration();
 
-            GenerationNumber++;
+            PopulationCount = result.PopulationCount;
+            GenerationNumber = result.GenerationNumber;
+            EvolutionEnded = result.EvolutionEnded;
         }
 
         /// <summary>
@@ -87,10 +125,10 @@ namespace ConwaysGameOfLife.ViewModels
         /// <param name="cellRowColumn">Formatted string identifying a particular cell. Format is "rowIndex,columnIndex"<param>
         private void ToggleCellLife(string cellRowColumn)
         {
-            string[] cellRowSplit = cellRowColumn.Split(',');
+            string[] cellRowColumnSplit = cellRowColumn.Split(',');
 
-            int row = int.Parse(cellRowSplit[0]);
-            int column = int.Parse(cellRowSplit[1]);
+            int row = int.Parse(cellRowColumnSplit[0]);
+            int column = int.Parse(cellRowColumnSplit[1]);
 
             engine.CurrentGeneration.ToggleCellLife(row, column);
         }

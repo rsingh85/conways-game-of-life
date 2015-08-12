@@ -1,7 +1,6 @@
 ﻿using ConwaysGameOfLife.Core;
 using ConwaysGameOfLife.Models;
 using ConwaysGameOfLife.Infrastructure;
-using System;
 
 namespace ConwaysGameOfLife.ViewModels
 {

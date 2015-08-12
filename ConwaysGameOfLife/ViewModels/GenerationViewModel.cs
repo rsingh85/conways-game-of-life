@@ -111,14 +111,17 @@ namespace ConwaysGameOfLife.ViewModels
                 _ => CanEvolveGeneration()
             );
 
-            ResetCommand = new RelayCommand<object>(_ => ResetGameOfLife());
+            ResetCommand = new RelayCommand<object>(
+                _ => ResetGame(),
+                _ => CanResetGame()
+            );
 
             ToggleCellLifeCommand = new RelayCommand<string>(
                 (cellRowColumn) => ToggleCellLife(cellRowColumn),
                 _ => CanToggleCellLife()
             );
         }
-
+        
         /// <summary>
         /// Gets the specified cell from the current generation.
         /// </summary>
@@ -142,17 +145,6 @@ namespace ConwaysGameOfLife.ViewModels
         }
 
         /// <summary>
-        /// Resets the game of life.
-        /// </summary>
-        private void ResetGameOfLife()
-        {
-            EvolutionEngineActionResult result = engine.ResetGeneration();
-
-            GenerationNumber = result.GenerationNumber;
-            EvolutionEnded = result.EvolutionEnded;
-        }
-
-        /// <summary>
         /// Determines if the current generation can be evolved.
         /// </summary>
         /// <returns>A boolean value which indicates if the current generation can further evolve.</returns>
@@ -161,6 +153,26 @@ namespace ConwaysGameOfLife.ViewModels
             return !EvolutionEnded;
         }
 
+        /// <summary>
+        /// Resets the game of life.
+        /// </summary>
+        private void ResetGame()
+        {
+            EvolutionEngineActionResult result = engine.ResetGeneration();
+
+            GenerationNumber = result.GenerationNumber;
+            EvolutionEnded = result.EvolutionEnded;
+        }
+
+        /// <summary>
+        /// Determines if the game can be reset.
+        /// </summary>
+        /// <returns>A boolean value which indicates if the game can be reset.</returns>
+        private bool CanResetGame()
+        {
+            return GenerationNumber > 0 || EvolutionEnded;
+        }
+       
         /// <summary>
         /// Makes a specfied cell alive or dead.
         /// </summary>

@@ -119,6 +119,8 @@ namespace ConwaysGameOfLife.ViewModels
                 (cellRowColumn) => ToggleCellLife(cellRowColumn),
                 _ => CanToggleCellLife()
             );
+
+            GenerationNumber = engine.CurrentGenerationNumber;
         }
         
         /// <summary>
@@ -169,7 +171,7 @@ namespace ConwaysGameOfLife.ViewModels
         /// <returns>A boolean value which indicates if the game can be reset.</returns>
         private bool CanResetGame()
         {
-            return GenerationNumber > 0 || EvolutionEnded;
+            return GenerationNumber > 1 || EvolutionEnded;
         }
        
         /// <summary>
@@ -192,7 +194,7 @@ namespace ConwaysGameOfLife.ViewModels
         /// <returns>A boolea value which indicates if the cell life can be toggled.</returns>
         private bool CanToggleCellLife()
         {
-            return GenerationNumber == 0 && !EvolutionEnded;
+            return GenerationNumber == 1 && !EvolutionEnded;
         }
     }
 }

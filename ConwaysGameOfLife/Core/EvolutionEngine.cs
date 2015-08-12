@@ -29,6 +29,7 @@ namespace ConwaysGameOfLife.Core
         public EvolutionEngine(Generation initialGeneration)
         {
             CurrentGeneration = initialGeneration;
+            CurrentGenerationNumber = 1;
         }
 
         /// <summary>
@@ -86,7 +87,7 @@ namespace ConwaysGameOfLife.Core
         {
             CurrentGeneration.Reset();
 
-            CurrentGenerationNumber = 0;
+            CurrentGenerationNumber = 1;
 
             return new EvolutionEngineActionResult(
                 evolutionEnded: false,

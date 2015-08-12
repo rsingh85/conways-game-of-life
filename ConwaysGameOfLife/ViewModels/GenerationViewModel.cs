@@ -115,7 +115,8 @@ namespace ConwaysGameOfLife.ViewModels
 
             ToggleCellLifeCommand = new RelayCommand<string>(
                 (cellRowColumn) => ToggleCellLife(cellRowColumn),
-                _ => CanToggleCellLife());
+                _ => CanToggleCellLife()
+            );
         }
 
         /// <summary>

@@ -19,11 +19,6 @@ namespace ConwaysGameOfLife.Models
         public int UniverseSize { get; private set; }
 
         /// <summary>
-        /// Gets the current population count.
-        /// </summary>
-        public int PopulationCount { get; private set; }
-
-        /// <summary>
         /// Initialises a new instance of a Generation.
         /// </summary>
         /// <param name="universeSize">Size of the universe.</param>
@@ -32,19 +27,27 @@ namespace ConwaysGameOfLife.Models
             universe = new Cell[universeSize, universeSize];
             UniverseSize = universeSize;
 
-            InitialiseUniverse();
-
-            PopulationCount = 0;
+            Initialise();
         }
 
         /// <summary>
-        /// Initialises the universe.
+        /// Initialises the generation.
         /// </summary>
-        private void InitialiseUniverse()
+        private void Initialise()
         {
             for (int row = 0; row < UniverseSize; row++)
                 for (int column = 0; column < UniverseSize; column++)
                     universe[row, column] = new Cell(row, column, false);
+        }
+
+        /// <summary>
+        /// Resets the generation.
+        /// </summary>
+        public void Reset()
+        {
+            for (int row = 0; row < UniverseSize; row++)
+                for (int column = 0; column < UniverseSize; column++)
+                    SetCell(row, column, false);
         }
 
         /// <summary>
@@ -79,14 +82,6 @@ namespace ConwaysGameOfLife.Models
                     "The specified row and column do not map to a valid cell."
                 );
 
-            // Before setting the cell's alive status,, if it is currently dead and we're setting it to alive
-            // then we need to increment/decrement the population count appropriately
-
-            if (!cell.Alive && alive)
-                PopulationCount++;
-            else if (cell.Alive && !alive)
-                PopulationCount--;
-
             cell.Alive = alive;
         }
 
@@ -99,8 +94,6 @@ namespace ConwaysGameOfLife.Models
         {
             Cell cell = GetCell(row, column);
             cell.Alive = !cell.Alive;
-
-            PopulationCount += (cell.Alive) ? 1 : -2;
         }
 
         /// <summary>

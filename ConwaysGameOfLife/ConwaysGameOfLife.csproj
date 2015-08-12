@@ -55,7 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Core\EvolutionResult.cs" />
+    <Compile Include="Core\EvolutionEngineActionResult.cs" />
+    <Compile Include="Core\IEvolutionEngine.cs" />
     <Compile Include="Infrastructure\LifeToColourConverter.cs" />
     <Compile Include="Infrastructure\RelayCommand.cs" />
     <Compile Include="Infrastructure\ObservableBase.cs" />

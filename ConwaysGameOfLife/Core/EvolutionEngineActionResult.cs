@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace ConwaysGameOfLife.Core
 {
-    public class EvolutionResult
+    public class EvolutionEngineActionResult
     {
-        public int PopulationCount { get; private set; }
         public bool EvolutionEnded { get; private set; }
         public int GenerationNumber { get; private set; }
 
-        public EvolutionResult(int populationCount, bool evolutionEnded, int generationNumber)
+        public EvolutionEngineActionResult(bool evolutionEnded, int generationNumber)
         {
-            PopulationCount = populationCount;
             EvolutionEnded = evolutionEnded;
             GenerationNumber = generationNumber;
         }

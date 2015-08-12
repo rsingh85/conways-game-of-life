@@ -7,21 +7,7 @@ namespace ConwaysGameOfLife.Tests
 {
     [TestClass]
     public class LifeEngineTests
-    {
-        [TestMethod]
-        public void Should_NotAlterInitialGenerationCells_When_Initialised()
-        {
-            // Arrange 
-            Generation initialGeneration = new Generation(universeSize: 5);
-            string expected = initialGeneration.ToString();
-
-            // Act
-            EvolutionEngine engine = new EvolutionEngine(initialGeneration);
-
-            // Assert
-            Assert.AreEqual(expected, engine.CurrentGeneration.ToString());
-        }
-        
+    {        
         [TestMethod]
         public void Should_KillCell_When_CellHasFewerThanTwoNeighbors()
         {
@@ -32,7 +18,7 @@ namespace ConwaysGameOfLife.Tests
 
             // Act
             EvolutionEngine engine = new EvolutionEngine(initialGeneration);
-            engine.EvolveToNextGeneration();
+            engine.EvolveGeneration();
 
             // Assert
             Assert.AreEqual(initialGeneration.GetCell(0, 0).Alive, false);
@@ -50,7 +36,7 @@ namespace ConwaysGameOfLife.Tests
 
             // Act
             EvolutionEngine engine = new EvolutionEngine(initialGeneration);
-            engine.EvolveToNextGeneration();
+            engine.EvolveGeneration();
 
             // Assert
             Assert.AreEqual(initialGeneration.GetCell(0, 1).Alive, true);
@@ -69,7 +55,7 @@ namespace ConwaysGameOfLife.Tests
 
             // Act
             EvolutionEngine engine = new EvolutionEngine(initialGeneration);
-            engine.EvolveToNextGeneration();
+            engine.EvolveGeneration();
 
             // Assert
             Assert.AreEqual(initialGeneration.GetCell(0, 1).Alive, false);
@@ -86,7 +72,7 @@ namespace ConwaysGameOfLife.Tests
 
             // Act
             EvolutionEngine engine = new EvolutionEngine(initialGeneration);
-            engine.EvolveToNextGeneration();
+            engine.EvolveGeneration();
 
             // Assert
             Assert.AreEqual(initialGeneration.GetCell(0, 1).Alive, true);

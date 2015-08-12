@@ -10,15 +10,15 @@
     <DockPanel Height="Auto">
         <TextBlock DockPanel.Dock="Top">
             <TextBlock.Text>
-                <MultiBinding StringFormat="Universe Size: {0}x{0} | Generation #: {1} | Population Count: {2} | Evolution Ended?: {3}">
+                <MultiBinding StringFormat="Universe Size: {0}x{0} | Generation #: {1} | Evolution Ended?: {2}">
                     <Binding Path="UniverseSize" />
                     <Binding Path="GenerationNumber" />
-                    <Binding Path="PopulationCount" />
                     <Binding Path="EvolutionEnded" />
                 </MultiBinding>
             </TextBlock.Text>
         </TextBlock>
-        <Button DockPanel.Dock="Top" Command="{Binding EvolveCommand}">Evolve</Button>
+        <Button DockPanel.Dock="Top" Command="{Binding EvolveCommand}" Width="Auto">Evolve</Button>
+        <Button DockPanel.Dock="Top" Command="{Binding ResetCommand}" Width="Auto">Reset</Button>
         <Grid DockPanel.Dock="Bottom" Name="UniverseGrid" ShowGridLines="True" Height="Auto"></Grid>
     </DockPanel>
 </Window>

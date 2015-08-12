@@ -10,17 +10,17 @@ namespace ConwaysGameOfLife.Core
     /// <summary>
     /// The engine that implements Conway's Game of Life rules.
     /// </summary>
-    public class EvolutionEngine
+    public class EvolutionEngine : IEvolutionEngine
     {
         /// <summary>
         /// Gets the current generation.
         /// </summary>
-        public Generation CurrentGeneration { get; private set; }
+        private Generation CurrentGeneration { get; set; }
 
         /// <summary>
         /// Gets the current generation number.
         /// </summary>
-        public int GenerationNumber { get; private set; }
+        public int CurrentGenerationNumber { get; private set; }
 
         /// <summary>
         /// Initialises a new instance of the LifeEngine with a specified initial generation.
@@ -34,8 +34,8 @@ namespace ConwaysGameOfLife.Core
         /// <summary>
         /// Applies Conway's life rules to evolve the current generation into the next generation.
         /// </summary>
-        /// <returns>Evolution result.</returns>
-        public EvolutionResult EvolveToNextGeneration()
+        /// <returns>An EvolutionEngineActionResult.</returns>
+        public EvolutionEngineActionResult EvolveGeneration()
         {
             const int UnderPopulationThreshold = 2,
                 OverPopulationThreshold = 3,
@@ -51,9 +51,7 @@ namespace ConwaysGameOfLife.Core
 
                     int numberOfAliveNeighbors = GetNumberOfAliveNeighbors(CurrentGeneration, cell);
 
-                    if (cell.Alive &&
-                            (numberOfAliveNeighbors < UnderPopulationThreshold ||
-                                numberOfAliveNeighbors > OverPopulationThreshold))
+                    if (cell.Alive && (numberOfAliveNeighbors < UnderPopulationThreshold || numberOfAliveNeighbors > OverPopulationThreshold))
                     {
                         cellLifeChangeTupleList.Add(new Tuple<int, int, bool>(row, column, false));
                     }
@@ -63,9 +61,10 @@ namespace ConwaysGameOfLife.Core
                     }
                 }
             }
+
             if (cellLifeChangeTupleList.Any())
             {
-                GenerationNumber++;
+                CurrentGenerationNumber++;
 
                 Parallel.ForEach(
                     cellLifeChangeTupleList,
@@ -73,11 +72,67 @@ namespace ConwaysGameOfLife.Core
                 );
             }
 
-            return new EvolutionResult(
-                populationCount: CurrentGeneration.PopulationCount,
+            return new EvolutionEngineActionResult(
                 evolutionEnded: !cellLifeChangeTupleList.Any(),
-                generationNumber: GenerationNumber
+                generationNumber: CurrentGenerationNumber
             );
+        }
+        
+        /// <summary>
+        /// Resets the current generation.
+        /// </summary>
+        /// <returns>An EvolutionEngineActionResult.</returns>
+        public EvolutionEngineActionResult ResetGeneration()
+        {
+            CurrentGeneration.Reset();
+
+            CurrentGenerationNumber = 0;
+
+            return new EvolutionEngineActionResult(
+                evolutionEnded: false,
+                generationNumber: CurrentGenerationNumber
+            );
+        }
+        
+        /// <summary>
+        /// Gets the current universe size.
+        /// </summary>
+        /// <returns>Universe size.</returns>
+        public int GetUniverseSize()
+        {
+            return CurrentGeneration.UniverseSize;
+        }
+
+        /// <summary>
+        /// Gets the specified cell in the current generation.
+        /// </summary>
+        /// <param name="row">Row index of cell.</param>
+        /// <param name="column">COlumn index of cell.</param>
+        /// <returns>The specified cell.</returns>
+        public Cell GetCell(int row, int column)
+        {
+            return CurrentGeneration.GetCell(row, column);
+        }
+
+        /// <summary>
+        /// Sets a particular cell in the current generation to be dead or alive.
+        /// </summary>
+        /// <param name="row">Row index of the cell.</param>
+        /// <param name="column">Column index of the cell.</param>
+        /// <param name="alive">A boolean value that indicates if this cell is dead or alive.</param>
+        public void SetCell(int row, int column, bool alive)
+        {
+            CurrentGeneration.SetCell(row, column, alive);
+        }
+
+        /// <summary>
+        /// Toggles the living status of a cell in the current generatio.
+        /// </summary>
+        /// <param name="row">Row index of the cell.</param>
+        /// <param name="column">Colummn index of cell.</param>
+        public void ToggleCellLife(int row, int column)
+        {
+            CurrentGeneration.ToggleCellLife(row, column);
         }
 
         /// <summary>

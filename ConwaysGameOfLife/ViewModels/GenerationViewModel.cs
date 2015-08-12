@@ -1,6 +1,7 @@
 ﻿using ConwaysGameOfLife.Core;
 using ConwaysGameOfLife.Models;
 using ConwaysGameOfLife.Infrastructure;
+using System;
 
 namespace ConwaysGameOfLife.ViewModels
 {
@@ -13,13 +14,14 @@ namespace ConwaysGameOfLife.ViewModels
         /// <summary>
         /// Life engine instance.
         /// </summary>
-        private readonly EvolutionEngine engine;
+        private readonly IEvolutionEngine engine;
 
         /// <summary>
         /// Gets the current universe size.
         /// </summary>
-        public int UniverseSize { get { return engine.CurrentGeneration.UniverseSize; } }
+        public int UniverseSize { get { return engine.GetUniverseSize(); } }
 
+        #region PopulationCount Property
         /// <summary>
         /// Count of the current population.
         /// </summary>
@@ -37,7 +39,9 @@ namespace ConwaysGameOfLife.ViewModels
                 OnPropertyChanged();
             }
         }
+        #endregion
 
+        #region GenerationNumber Property
         /// <summary>
         /// Number of generations the current generation has evolved from.
         /// </summary>
@@ -55,7 +59,9 @@ namespace ConwaysGameOfLife.ViewModels
                 OnPropertyChanged();
             }
         }
+        #endregion
 
+        #region EvolutionEnded Property
         /// <summary>
         /// Indicates whether the generation has stopped evolving.
         /// </summary>
@@ -73,16 +79,24 @@ namespace ConwaysGameOfLife.ViewModels
                 OnPropertyChanged();
             }
         }
+        #endregion
 
+        #region Command Properties
         /// <summary>
         /// RelayCommand for evolving the current generation.
         /// </summary>
         public RelayCommand<object> EvolveCommand { get; private set; }
 
         /// <summary>
+        /// Relay command for resetting the game of life.
+        /// </summary>
+        public RelayCommand<object> ResetCommand { get; private set; }
+
+        /// <summary>
         /// RelayCommand for toggling a particular cell's life.
         /// </summary>
         public RelayCommand<string> ToggleCellLifeCommand { get; private set; }
+        #endregion
 
         /// <summary>
         /// Initialises a new instance of GenerationViewModel with the specified universe size.
@@ -90,10 +104,18 @@ namespace ConwaysGameOfLife.ViewModels
         /// <param name="universeSize">Universesize.</param>
         public GenerationViewModel(int universeSize)
         {
-            EvolveCommand = new RelayCommand<object>(_ => EvolveGeneration());
-            ToggleCellLifeCommand = new RelayCommand<string>((cellRowColumn) => ToggleCellLife(cellRowColumn));
-
             engine = new EvolutionEngine(new Generation(universeSize));
+
+            EvolveCommand = new RelayCommand<object>(
+                _ => EvolveGeneration(), 
+                _ => CanEvolveGeneration()
+            );
+
+            ResetCommand = new RelayCommand<object>(_ => ResetGameOfLife());
+
+            ToggleCellLifeCommand = new RelayCommand<string>(
+                (cellRowColumn) => ToggleCellLife(cellRowColumn),
+                _ => CanToggleCellLife());
         }
 
         /// <summary>
@@ -104,19 +126,38 @@ namespace ConwaysGameOfLife.ViewModels
         /// <returns></returns>
         public Cell GetCell(int row, int column)
         {
-            return engine.CurrentGeneration.GetCell(row, column);
+            return engine.GetCell(row, column);
         }
 
         /// <summary>
-        /// Evolves the current generation using the life engine.
+        /// Evolves the current generation.
         /// </summary>
         private void EvolveGeneration()
         {
-            EvolutionResult result = engine.EvolveToNextGeneration();
-
-            PopulationCount = result.PopulationCount;
+            EvolutionEngineActionResult result = engine.EvolveGeneration();
+            
             GenerationNumber = result.GenerationNumber;
             EvolutionEnded = result.EvolutionEnded;
+        }
+
+        /// <summary>
+        /// Resets the game of life.
+        /// </summary>
+        private void ResetGameOfLife()
+        {
+            EvolutionEngineActionResult result = engine.ResetGeneration();
+
+            GenerationNumber = result.GenerationNumber;
+            EvolutionEnded = result.EvolutionEnded;
+        }
+
+        /// <summary>
+        /// Determines if the current generation can be evolved.
+        /// </summary>
+        /// <returns>A boolean value which indicates if the current generation can further evolve.</returns>
+        private bool CanEvolveGeneration()
+        {
+            return !EvolutionEnded;
         }
 
         /// <summary>
@@ -130,7 +171,16 @@ namespace ConwaysGameOfLife.ViewModels
             int row = int.Parse(cellRowColumnSplit[0]);
             int column = int.Parse(cellRowColumnSplit[1]);
 
-            engine.CurrentGeneration.ToggleCellLife(row, column);
+            engine.ToggleCellLife(row, column);
+        }
+
+        /// <summary>
+        /// Determines if the cell life can be toggled.
+        /// </summary>
+        /// <returns>A boolea value which indicates if the cell life can be toggled.</returns>
+        private bool CanToggleCellLife()
+        {
+            return GenerationNumber == 0 && !EvolutionEnded;
         }
     }
 }

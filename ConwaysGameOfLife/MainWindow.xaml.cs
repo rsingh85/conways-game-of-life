@@ -51,11 +51,9 @@ namespace ConradsGameOfLife
                 {
                     if (row == 0)
                         UniverseGrid.ColumnDefinitions.Add(new ColumnDefinition());
-
-                    Cell cell = generationViewModel.GetCell(row, column);
-
+                    
                     // Let's use a TextBlock to visually represent a cell
-                    TextBlock cellTextBlock = CreateCellTextBlock(cell);
+                    TextBlock cellTextBlock = CreateCellTextBlock(generationViewModel.GetCell(row, column));
                     
                     // Position the "cell" in the grid
                     Grid.SetRow(cellTextBlock, row);

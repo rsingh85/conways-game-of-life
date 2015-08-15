@@ -102,7 +102,7 @@ namespace ConwaysGameOfLife.Models
         /// <returns>String representation of this generation.</returns>
         public override string ToString()
         {
-            var gridString = new StringBuilder();
+            StringBuilder gridString = new StringBuilder();
 
             for (int row = 0; row < UniverseSize; row++)
             {

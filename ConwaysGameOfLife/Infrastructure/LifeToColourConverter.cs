@@ -12,14 +12,20 @@ namespace ConwaysGameOfLife.Infrastructure
     public class LifeToColourConverter : IValueConverter
     {
         /// <summary>
-        /// Default colour for a living cell.
+        /// Gets the colour that represents alive.
         /// </summary>
-        public static SolidColorBrush AliveCellColour = Brushes.Black;
+        public SolidColorBrush AliveColour { get; private set; }
 
         /// <summary>
-        /// Default colour for a dead cell.
+        /// Gets the colour that represents dead.
         /// </summary>
-        public static SolidColorBrush DeadCellColour = Brushes.White;
+        public SolidColorBrush DeadColour { get; private set; }
+
+        public LifeToColourConverter(SolidColorBrush aliveColour, SolidColorBrush deadColour)
+        {
+            AliveColour = aliveColour;
+            DeadColour = DeadColour;
+        }
 
         /// <summary>
         /// Converts a boolean value that indicates a cell's living status to a colour.
@@ -36,7 +42,7 @@ namespace ConwaysGameOfLife.Infrastructure
             if (value is bool)
                 alive = (bool) value;
             
-            return alive ? AliveCellColour : DeadCellColour;
+            return alive ? AliveColour : DeadColour;
         }
 
         /// <summary>
@@ -50,7 +56,7 @@ namespace ConwaysGameOfLife.Infrastructure
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is SolidColorBrush)
-                return ((SolidColorBrush) value) == AliveCellColour;
+                return ((SolidColorBrush) value) == AliveColour;
 
             return false;
         }

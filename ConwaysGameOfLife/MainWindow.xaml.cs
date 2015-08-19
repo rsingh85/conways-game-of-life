@@ -6,6 +6,7 @@ using System.Windows.Input;
 using ConwaysGameOfLife.Models;
 using ConwaysGameOfLife.ViewModels;
 using ConwaysGameOfLife.Infrastructure;
+using System.Windows.Media;
 
 namespace ConradsGameOfLife
 {
@@ -73,7 +74,6 @@ namespace ConradsGameOfLife
         {
             TextBlock cellTextBlock = new TextBlock();
             cellTextBlock.DataContext = cell;
-            cellTextBlock.Background = LifeToColourConverter.DeadCellColour;
             cellTextBlock.InputBindings.Add(CreateMouseClickInputBinding(cell));
             cellTextBlock.SetBinding(TextBlock.BackgroundProperty, CreateCellToLivingStatusBinding(cell));
 
@@ -104,13 +104,16 @@ namespace ConradsGameOfLife
         /// <returns>A Binding for the cell.</returns>
         private Binding CreateCellToLivingStatusBinding(Cell cell)
         {
-            Binding cellAliveBinding = new Binding();
-            cellAliveBinding.Source = cell;
-            cellAliveBinding.Path = new PropertyPath("Alive");
-            cellAliveBinding.Mode = BindingMode.TwoWay;
-            cellAliveBinding.Converter = new LifeToColourConverter();
-
-            return cellAliveBinding;
+            return new Binding
+            {
+                Source = cell,
+                Path = new PropertyPath("Alive"),
+                Mode = BindingMode.TwoWay,
+                Converter = new LifeToColourConverter(
+                    aliveColour: Brushes.Black,
+                    deadColour: Brushes.White
+                )
+            };
         }
     }
 }

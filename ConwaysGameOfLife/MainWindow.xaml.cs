@@ -2,11 +2,11 @@
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 
 using ConwaysGameOfLife.Models;
 using ConwaysGameOfLife.ViewModels;
 using ConwaysGameOfLife.Infrastructure;
-using System.Windows.Media;
 
 namespace ConradsGameOfLife
 {
@@ -35,7 +35,6 @@ namespace ConradsGameOfLife
             BuildGridUI(generationViewModel);
 
             DataContext = generationViewModel;
-
         }
 
         /// <summary>
@@ -75,7 +74,7 @@ namespace ConradsGameOfLife
             TextBlock cellTextBlock = new TextBlock();
             cellTextBlock.DataContext = cell;
             cellTextBlock.InputBindings.Add(CreateMouseClickInputBinding(cell));
-            cellTextBlock.SetBinding(TextBlock.BackgroundProperty, CreateCellToLivingStatusBinding(cell));
+            cellTextBlock.SetBinding(TextBlock.BackgroundProperty, CreateCellAliveBinding());
 
             return cellTextBlock;
         }
@@ -98,15 +97,13 @@ namespace ConradsGameOfLife
         }
 
         /// <summary>
-        /// Creates a binding between the Cell.Alive property and its visual representation.
+        /// Creates a binding for the Cell.Alive property.
         /// </summary>
-        /// <param name="cell">The cell that this binding is for.</param>
-        /// <returns>A Binding for the cell.</returns>
-        private Binding CreateCellToLivingStatusBinding(Cell cell)
+        /// <returns>A Binding for the cell Alive property.</returns>
+        private Binding CreateCellAliveBinding()
         {
             return new Binding
             {
-                Source = cell,
                 Path = new PropertyPath("Alive"),
                 Mode = BindingMode.TwoWay,
                 Converter = new LifeToColourConverter(

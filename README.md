@@ -1,4 +1,4 @@
-# ConwaysGameOfLife
+# Conway's Game of Life
 A C# with WPF implementation of the famous Conway's Game of Life algorithm.
 
 **What is Conway's Game of Life?**

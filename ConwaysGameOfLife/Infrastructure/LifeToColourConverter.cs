@@ -24,7 +24,7 @@ namespace ConwaysGameOfLife.Infrastructure
         public LifeToColourConverter(SolidColorBrush aliveColour, SolidColorBrush deadColour)
         {
             AliveColour = aliveColour;
-            DeadColour = DeadColour;
+            DeadColour = deadColour;
         }
 
         /// <summary>

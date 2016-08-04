@@ -1,6 +1,6 @@
 # Conway's Game of Life
 A C# with WPF implementation of the famous Conway's Game of Life algorithm.
-Associated [blog post] (http://seesharpdeveloper.blogspot.co.uk/)
+Associated blog post can be found [here] (http://seesharpdeveloper.blogspot.co.uk/).
 
 **What is Conway's Game of Life?**
 

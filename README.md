@@ -4,7 +4,7 @@ Associated blog post can be found [here] (http://seesharpdeveloper.blogspot.co.u
 
 **What is Conway's Game of Life?**
 
-Please see my associated [blog post] (http://seesharpdeveloper.blogspot.co.uk/) or the [Wikipedia article] (https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
+Please see my associated [blog post] (http://seesharpdeveloper.blogspot.co.uk/2015/08/conways-game-of-life-exercise-in-wpf.html) or the [Wikipedia article] (https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
 
 **What is this implementation built with?**
 

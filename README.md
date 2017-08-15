@@ -16,4 +16,4 @@ I was inspired by Lea Verou's play-by-play Pluralsight video on implementing Con
 
 **Screenshots**
 
-![Conway's Game of Life - simple L seed evolution.](http://www.ravi-singh.com/gol-simple-lseed.gif)
+![Conway's Game of Life - simple L seed evolution.](https://github.com/rsingh85/conways-game-of-life/blob/master/gol-simple-lseed.gif)
